@@ -1,0 +1,322 @@
+\documentclass[12pt,a4papper]{article}
+
+\newcommand{\pn}[1]{\langle \textnormal{#1} \rangle}
+\newcommand{\pp}{\models}
+\newcommand{\oo}{\; \mid \;}
+\newcommand{\sk}{\dots }
+\newcommand{\ww}{\;}
+\newcommand{\nn}{\perp}
+\newcommand{\sm}[1]{\textnormal{#1}}
+\newcommand{\sd}[1]{\textnormal{\it #1}}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{setspace} %pacote para espaçamento
+\usepackage{indentfirst}
+\usepackage{graphicx, wrapfig, float} %pacotes figuras/imagens
+\usepackage{amsfonts, amssymb, amsmath, mathrsfs} %pacotes matémáticos
+%\usepackage[top=2.5cm, bottom=3cm, right=2.5cm, right=2.5cm]{geometry} %margem
+%\usepackage{algorithmic, algorithm} %algoritmos
+
+\usepackage{lscape}
+
+%\onehalfspace %espacamento de um e meio
+%\doublespace %espaçamento duplo
+
+\title{Gramática C}
+\author{Luiz Guilherme Castilho Martins \\
+\texttt{luizgui@gmail.com}}
+\date{Londrina, \today}
+
+\begin{document}
+\begin{landscape}
+%\maketitle
+%\thispagestyle{empty}
+%\newpage
+
+\subsection{programa}
+\begin{eqnarray}
+\pn{programa} &\pp& \pn{declaracao} \\
+\pn{programa} &\pp& \pn{funcao} \\
+\pn{programa} &\pp& \pn{declaracao} \ww \pn{programa} \\
+\pn{programa} &\pp& \pn{funcao} \ww \pn{programa} 
+\end{eqnarray}
+
+
+\subsection{declaracoes}
+\begin{eqnarray}
+\pn{declaracoes} &\pp& \sm{\#} \ww \sm{define} \ww \pn{expressao} \\
+\pn{declaracoes} &\pp& \pn{declaracao-variaveis} \\
+\pn{declaracoes} &\pp& \pn{declaracao-prototipos}
+\end{eqnarray}
+
+
+
+\subsection{funcao}
+\begin{eqnarray}
+        \pn{funcao} &\pp& \pn{tipo} \ww \sm{identificador} \ww \pn{parametros} \ww \sm{\{} \ww \pn{comandos} \ww \sm{\}} \\
+        \pn{funcao} &\pp& \pn{tipo} \ww \sm{identificador} \ww \pn{parametros} \ww \sm{\{} \ww  \pn{foo-funcao} \ww \pn{comandos} \ww \sm{\}} \\
+    \pn{foo-funcao} &\pp& \pn{declaracao-variaveis} \\
+    \pn{foo-funcao} &\pp& \pn{declaracao-variaveis} \ww \pn{foo-funcao}
+\end{eqnarray}
+
+
+\subsection{declaracao-variaveis}
+\begin{eqnarray}
+\pn{declaracao-variaveis} &\pp& \pn{tipo} \ww \pn{foo-declaracao-variaveis}  \\
+\pn{foo-declaracao-variaveis} &\pp& \sm{identificador} \ww \pn{bar-declaracao-variaveis} \\
+\pn{foo-declaracao-variaveis} &\pp& \sm{identificador} \ww \sm{$=$} \ww \pn{expressao} \ww \pn{bar-declaracao-variaveis} \\
+\pn{bar-declaracao-variaveis} &\pp& \sm{,} \ww \pn{foo-declaracao-variaveis} \\
+\pn{bar-declaracao-variaveis} &\pp& \sm{;}
+\end{eqnarray}
+
+
+\subsection{declaracao-prototipos}
+\begin{eqnarray}
+\pn{declaracao-prototipos} &\pp& \pn{tipo} \ww \sm{identificador} \ww \pn{parametros} \ww \sm{;}
+\end{eqnarray}
+
+
+\subsection{parametros}
+\begin{eqnarray}
+\pn{parametros} &\pp& \sm{(} \ww \sm{)} \\
+\pn{parametros} &\pp& \sm{(} \ww \pn{foo-parametros} \ww \sm{)} \\
+\pn{foo-parametros} &\pp& \pn{tipo} \ww \sm{identificador} \\
+\pn{foo-parametros} &\pp& \pn{tipo} \ww \sm{identificador} \ww \sm{,} 
+\end{eqnarray}
+
+
+\subsection{Tipo}
+\begin{eqnarray}
+        \pn{tipo} &\pp& \sm{int} \\
+        \pn{tipo} &\pp& \sm{char} \\
+        \pn{tipo} &\pp& \sm{void} 
+\end{eqnarray}
+
+
+\subsection{Comandos}
+\begin{eqnarray}
+\pn{comandos} &\pp& \pn{lista-comandos} \\
+\pn{comandos} &\pp& \pn{lista-comandos} \ww \pn{comandos} 
+\end{eqnarray}
+
+
+\subsection{Bloco}
+\begin{eqnarray}
+        \pn{bloco} &\pp& \sm{\{} \ww \pn{comandos} \ww \sm{\}}
+\end{eqnarray}
+
+
+\subsection{Lista de Comandos}
+
+\begin{eqnarray}
+\pn{lista-de-comandos} &\pp& \sm{do} \ww \pn{bloco} \ww \sm{while} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \sm{;} \\
+\pn{lista-de-comandos} &\pp& \sm{if} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco} \ww \pn{foo-else} \\
+\pn{lista-de-comandos} &\pp& \sm{if} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco} \ww \sd{se foo-else puder ser lambda apaga essa} \\
+\pn{foo-else} &\pp& \sm{else} \ww \pn{bloco} \\  
+\pn{lista-de-comandos} &\pp& \sm{while} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco}\\
+\pn{lista-de-comandos} &\pp& \sm{for} \ww \sm{(} \ww \pn{foo-for} \ww \sm{;} \ww \pn{foo-for} \ww \sm{;} \ww \pn{foo-for} \ww \sm{)} \ww \pn{bloco}   \\
+\pn{lista-de-comandos} &\pp& \sm{for} \ww \sm{(} \ww \pn{expressao} \ww \sm{;} \ww \pn{expressao} \ww \sm{;} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco}   \\
+\pn{lista-de-comandos} &\pp& \sm{printf} \ww \sm{(} \ww \sm{string} \ww \pn{foo-printf} \ww \sm{)} \ww \sm{;}\\
+       \pn{foo-printf} &\pp&  \sm{,} \ww \pn{expressao} \\
+       \pn{foo-printf} &\pp&  \sm{,} \ww \pn{expressao} \ww \pn{foo-printf}\\
+\pn{lista-de-comandos} &\pp&  \sm{scanf} \ww \sm{(} \ww \sm{string} \ww \sm{,} \ww \sm{\&} \ww \sm{identificador} \ww \sm{)} \ww \sm{;} \\
+\pn{lista-de-comandos} &\pp&  \sm{exit} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \sm{;} \\
+\pn{lista-de-comandos} &\pp&  \sm{return} \ww \sm{;} \\
+\pn{lista-de-comandos} &\pp&  \sm{return} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww  \sm{;} \\
+\pn{lista-de-comandos} &\pp&  \pn{expressao} \ww \sm{;} \\
+\pn{lista-de-comandos} &\pp&  \sm{;} \\
+\pn{lista-de-comandos} &\pp&  \pn{bloco}
+\end{eqnarray}
+
+
+
+\subsection{expressao}
+\begin{eqnarray}
+\pn{expressao} &\pp& \pn{expressao-condicional} \\
+\pn{expressao} &\pp& \pn{expressao-condicional} \ww \pn{foo-expressao} \\
+          \pn{foo-expressao} &\pp& \sm{$=$} \ww \pn{expressao} \\
+          \pn{foo-expressao} &\pp& \sm{$+=$} \ww \pn{expressao} \\
+          \pn{foo-expressao} &\pp& \sm{$-=$} \ww \pn{expressao} \\
+\end{eqnarray}
+
+
+\subsection{expressao-condicional}
+\begin{eqnarray}
+\pn{expressao-condicional} &\pp& \pn{expressao-OR-logico} \\
+\pn{expressao-condicional} &\pp& \pn{expressao-OR-logico} \ww \sm{?} \ww \pn{expressao-OR-logico} \ww \sm{:} \ww \pn{expressao-OR-logico}
+\end{eqnarray}
+
+\textbf{Se necessário usar foo.}
+
+\begin{eqnarray}
+\pn{expressao-condicional} &\pp& \pn{expressao-OR-logico} \ww \oo \pn{foo-expressao-condicional}  \\
+\pn{foo-expressao-condicional} &\pp& \pn{expressao-OR-logico} \ww \sm{?} \ww \pn{expressao-OR-logico} \ww \sm{:} \ww \pn{expressao-OR-logico}
+\end{eqnarray}
+
+
+
+\subsection{expressao-OR-logico}
+\begin{eqnarray}
+\pn{expressao-OR-logico} &\pp& \pn{expressao-AND-logico} \\
+\pn{expressao-OR-logico} &\pp& \pn{expressao-AND-logico} \ww  \sm{$\mid\mid$} \ww \pn{expressao-OR-logico} 
+\end{eqnarray}
+
+
+\subsection{expressao-AND-logico}
+\begin{eqnarray}
+\pn{expressao-AND-logico} &\pp& \pn{expressao-OR} \\
+\pn{expressao-AND-logico} &\pp& \pn{expressao-OR} \ww \sm{\&\&} \ww \pn{expressao-AND-logico} 
+\end{eqnarray}
+
+
+\subsection{expressao-OR}
+\begin{eqnarray}
+\pn{expressao-OR} &\pp& \pn{expressao-XOR} \\
+\pn{expressao-OR} &\pp& \pn{expressao-XOR} \ww \sm{$\mid$} \ww \pn{expressao-OR}
+\end{eqnarray}
+
+
+\subsection{expressao-XOR}
+\begin{eqnarray}
+\pn{expressao-XOR} &\pp& \pn{expressao-AND} \\
+\pn{expressao-XOR} &\pp& \pn{expressao-AND} \ww \sm{$\wedge$} \ww \pn{expressao-XOR} 
+\end{eqnarray}
+
+
+\subsection{expressao-AND}
+\begin{eqnarray}
+\pn{expressao-AND} &\pp& \pn{expressao-igualdade} \\
+\pn{expressao-AND} &\pp& \pn{expressao-igualdade} \ww \sm{\&} \ww \pn{expressao-AND}
+\end{eqnarray}
+
+
+\subsection{expressao-igualdade}
+\begin{eqnarray}
+\pn{expressao-igualdade} &\pp& \pn{expressao-relacional} \\
+\pn{expressao-igualdade} &\pp& \pn{expressao-relacional} \ww \pn{foo-expressao-igualdade} \\
+              \pn{foo-expressao-igualdade} &\pp& \sm{$==$} \ww \pn{expressao-igualdade} \\
+              \pn{foo-expressao-igualdade} &\pp& \sm{$!=$} \ww \pn{expressao-igualdade}
+\end{eqnarray}
+
+
+\subsection{expressao-relacional}
+\begin{eqnarray}
+\pn{expressao-relacional} &\pp& \pn{expressao-shift} \\
+\pn{expressao-relacional} &\pp& \pn{expressao-shift} \ww \pn{expressao-relacional} \\
+              \pn{expressao-relacional} &\pp& \sm{$<$} \ww \pn{expressao-relacional} \\
+              \pn{expressao-relacional} &\pp& \sm{$\leq$} \ww \pn{expressao-relacional} \\
+              \pn{expressao-relacional} &\pp& \sm{$>$} \ww \pn{expressao-relacional} \\
+              \pn{expressao-relacional} &\pp& \sm{$\geq$} \ww \pn{expressao-relacional}
+\end{eqnarray}
+
+        
+\subsection{expressao-shift}
+\begin{eqnarray}
+        \pn{expressao-shift} &\pp& \pn{expressao-aditiva} \\
+        \pn{expressao-shift} &\pp& \pn{expressao-aditiva} \ww \pn{foo-expressao-shift} \\
+    \pn{foo-expressao-shift} &\pp& \sm{$\gg$} \ww \pn{expressao-shift} \\
+    \pn{foo-expressao-shift} &\pp& \sm{$\ll$} \ww \pn{expressao-shift}
+\end{eqnarray}
+
+       
+\subsection{expressao-aditiva}
+\begin{eqnarray}
+        \pn{expressao-aditiva} &\pp& \pn{expressao-multiplicativa}\\
+        \pn{expressao-aditiva} &\pp& \pn{expressao-multiplicativa} \ww \pn{foo-expressao-aditiva} \\
+    \pn{foo-expressao-aditiva} &\pp& \sm{$+$} \ww \pn{expressao-aditiva} \\
+    \pn{foo-expressao-aditiva} &\pp& \sm{$-$} \ww \pn{expressao-aditiva}
+\end{eqnarray}
+
+\subsection{expressao-multiplicativa}
+\begin{eqnarray}
+        \pn{expressao-multiplicativa} &\pp& \pn{expressao-unaria} \\
+        \pn{expressao-multiplicativa} &\pp& \pn{expressao-unaria} \ww \pn{foo-expressao-multiplicativa} \\
+    \pn{foo-expressao-multiplicativa} &\pp& \sm{\%} \ww \pn{expressao-multiplicativa} \\
+        \pn{foo-expressao-multiplicativa} &\pp& \sm{/} \ww \pn{expressao-multiplicativa} \\
+        \pn{foo-expressao-multiplicativa} &\pp& \sm{$*$} \ww \pn{expressao-multiplicativa}
+\end{eqnarray}
+
+
+
+\subsection{expressao-unaria}
+til = acento til
+\begin{eqnarray}
+        \pn{expressao-unaria} &\pp& \pn{identificador}  \ww  \sm{++} \\
+        \pn{expressao-unaria} &\pp& \pn{identificador}  \ww  \sm{- -} \\
+        \pn{expressao-unaria} &\pp& \pn{numero} \\
+        \pn{expressao-unaria} &\pp& \pn{caracter} \\
+        \pn{expressao-unaria} &\pp& \pn{identificador} \ww \sm{(} \ww \pn{foo-expressao-unaria} \ww \sm{)} \\
+   \pn{foo-expressao-unaria}  &\pp& \pn{expressao} \ww \\
+   \pn{foo-expressao-unaria}  &\pp& \pn{expressao} \ww \sm{,} \ww \pn{foo-expressao-unaria} \\
+       \pn{expressao-unaria}  &\pp& \sm{(}  \ww   \pn{expressao}   \ww  \sm{)} \\
+       \pn{expressao-unaria}  &\pp& \sm{!}  \ww  \pn{expressao-unaria} \\
+       \pn{expressao-unaria}  &\pp& \sm{til}  \ww  \pn{expressao-unaria} \\
+       \pn{expressao-unaria}  &\pp& \sm{$-$}  \ww  \pn{expressao-unaria} \\
+       \pn{expressao-unaria}  &\pp& \sm{$+$}  \ww  \pn{expressao-unaria} 
+      \end{eqnarray}
+
+
+\subsection{numero}
+\begin{eqnarray}
+        \pn{numero} &\pp& \pn{num-integer} \\
+        \pn{numero} &\pp& \pn{num-hexa} \\
+        \pn{numero} &\pp& \pn{num-octal} 
+\end{eqnarray}
+
+\end{landscape}
+\end{document} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Eqnarray
+snippet eqnarray
+%\begin{eqnarray}
+%${1}
+%\end{eqnarray}
+
+# Terminal
+snippet term
+%\sm{${1:T}} ${2}
+
+# Desc Terminal
+snippet dterm
+%\sd{${para1:DT}} ${2}
+
+# Nao Terminal
+snippet asnaot
+%\pn{${1:NT}} ${2}
+
+## lambda
+        snippet lamb
+        \nn ${1}
+
+## OR
+        snippet ww
+        \ww ${1}
+
+## OR
+        snippet or
+        \inseriroo ${1}
+
+## Produz (seta))
+        snippet prod
+        &\pp& ${1} 
+                
+
+% template para inserir imagem
+\begin{figure}[h]
+        \begin{center}
+                \includegraphics[scale=1]{imagem.png}
+        \end{center}
+\end{figure}
+
+% template para inserir tabela (op = c, r, l, p{2cm})
+\begin{table}[h]
+        \begin{center}
+                \begin{tabular}{c}
+                        roberto
+                \end{tabular}
+        \end{center}
+\end{table}
+
+
+
