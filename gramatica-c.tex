@@ -45,7 +45,7 @@
 
 \subsection{declaracoes}
 \begin{eqnarray}
-\pn{declaracoes} &\pp& \sm{\#} \ww \sm{define} \ww \pn{expressao} \\
+\pn{declaracoes} &\pp& \sm{\#} \ww \sm{define} \ww \sm{identificador} \ww \pn{expressao} \\
 \pn{declaracoes} &\pp& \pn{declaracao-variaveis} \\
 \pn{declaracoes} &\pp& \pn{declaracao-prototipos}
 \end{eqnarray}
@@ -82,7 +82,7 @@
 \pn{parametros} &\pp& \sm{(} \ww \sm{)} \\
 \pn{parametros} &\pp& \sm{(} \ww \pn{foo-parametros} \ww \sm{)} \\
 \pn{foo-parametros} &\pp& \pn{tipo} \ww \sm{identificador} \\
-\pn{foo-parametros} &\pp& \pn{tipo} \ww \sm{identificador} \ww \sm{,} 
+\pn{foo-parametros} &\pp& \pn{tipo} \ww \sm{identificador} \ww \sm{,} \ww \sm{foo-parametros}
 \end{eqnarray}
 
 
@@ -111,13 +111,16 @@
 
 \begin{eqnarray}
 \pn{lista-de-comandos} &\pp& \sm{do} \ww \pn{bloco} \ww \sm{while} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \sm{;} \\
-\pn{lista-de-comandos} &\pp& \sm{if} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco} \ww \pn{foo-else} \\
-\pn{lista-de-comandos} &\pp& \sm{if} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco} \ww \sm{else} \ww \pn{bloco} \\ 
-%TODO: problema de ambiguidade do if (livro de tigre) usar mesma ideia em problemas parecidos)
-\pn{foo-else} &\pp& \sm{else} \ww \pn{bloco} \\  
+\pn{lista-de-comandos} &\pp& \sm{if} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco} \ww \sm{else} \ww \pn{foo-else} \\
+\pn{lista-de-comandos} &\pp& \sm{if} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco} \\
+         \pn{foo-else} &\pp& \pn{bloco} \\  
+         \pn{foo-else} &\pp& \sm{\{} \ww \sm{\}}\\
 \pn{lista-de-comandos} &\pp& \sm{while} \ww \sm{(} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco}\\
-\pn{lista-de-comandos} &\pp& \sm{for} \ww \sm{(} \ww \pn{foo-for} \ww \sm{;} \ww \pn{foo-for} \ww \sm{;} \ww \pn{foo-for} \ww \sm{)} \ww \pn{bloco}   \\
-\pn{lista-de-comandos} &\pp& \sm{for} \ww \sm{(} \ww \pn{expressao} \ww \sm{;} \ww \pn{expressao} \ww \sm{;} \ww \pn{expressao} \ww \sm{)} \ww \pn{bloco}   \\
+\pn{lista-de-comandos} &\pp& \sm{for} \ww \sm{(} \ww \pn{foo-for} \ww \pn{foo-for} \ww \pn{bar-for} \ww \pn{bloco}   \\
+          \pn{foo-for} &\pp& \pn{expressao} \ww ;\\
+          \pn{foo-for} &\pp& \sm{;}\\
+          \pn{bar-for} &\pp& \pn{expressao} \ww \sm{)}\\
+          \pn{bar-for} &\pp& \sm{)}\\
 \pn{lista-de-comandos} &\pp& \sm{printf} \ww \sm{(} \ww \sm{string} \ww \pn{foo-printf} \ww \sm{)} \ww \sm{;}\\
        \pn{foo-printf} &\pp&  \sm{,} \ww \pn{expressao} \\
        \pn{foo-printf} &\pp&  \sm{,} \ww \pn{expressao} \ww \pn{foo-printf}\\
@@ -145,50 +148,47 @@
 \subsection{expressao-condicional}
 \begin{eqnarray}
 \pn{expressao-condicional} &\pp& \pn{expressao-OR-logico} \\
-\pn{expressao-condicional} &\pp& \pn{expressao-OR-logico} \ww \sm{?} \ww \pn{expressao-OR-logico} \ww \sm{:} \ww \pn{expressao-OR-logico}
+\pn{expressao-condicional} &\pp& \sm{?} \ww \pn{expressao-OR-logico} \ww \sm{:} \ww \pn{expressao-OR-logico}
 \end{eqnarray}
-
-\textbf{Se necessário usar foo.}
-
-\begin{eqnarray}
-\pn{expressao-condicional} &\pp& \pn{expressao-OR-logico} \ww \oo \pn{foo-expressao-condicional}  \\
-\pn{foo-expressao-condicional} &\pp& \pn{expressao-OR-logico} \ww \sm{?} \ww \pn{expressao-OR-logico} \ww \sm{:} \ww \pn{expressao-OR-logico}
-\end{eqnarray}
-
 
 
 \subsection{expressao-OR-logico}
 \begin{eqnarray}
 \pn{expressao-OR-logico} &\pp& \pn{expressao-AND-logico} \\
-\pn{expressao-OR-logico} &\pp& \pn{expressao-AND-logico} \ww  \sm{$\mid\mid$} \ww \pn{expressao-OR-logico} 
+\pn{expressao-OR-logico} &\pp& \pn{expressao-AND-logico} \ww \pn{foo-expressao-OR-logico} \\
+\pn{foo-expressao-OR-logico} &\pp& \sm{$\mid\mid$} \ww \pn{expressao-OR-logico} 
 \end{eqnarray}
 
 
 \subsection{expressao-AND-logico}
 \begin{eqnarray}
 \pn{expressao-AND-logico} &\pp& \pn{expressao-OR} \\
-\pn{expressao-AND-logico} &\pp& \pn{expressao-OR} \ww \sm{\&\&} \ww \pn{expressao-AND-logico} 
+\pn{expressao-AND-logico} &\pp& \pn{expressao-OR} \ww \pn{foo-expressao-AND-logico} \\
+\pn{foo-expressao-AND-logico} &\pp& \sm{\&\&} \ww \pn{expressao-AND-logico} 
 \end{eqnarray}
 
 
 \subsection{expressao-OR}
 \begin{eqnarray}
 \pn{expressao-OR} &\pp& \pn{expressao-XOR} \\
-\pn{expressao-OR} &\pp& \pn{expressao-XOR} \ww \sm{$\mid$} \ww \pn{expressao-OR}
+\pn{expressao-OR} &\pp& \pn{expressao-XOR} \ww \pn{foo-expressao-OR} \\
+\pn{foo-expressao-OR} &\pp& \sm{$\mid$} \ww \pn{expressao-OR}
 \end{eqnarray}
 
 
 \subsection{expressao-XOR}
 \begin{eqnarray}
 \pn{expressao-XOR} &\pp& \pn{expressao-AND} \\
-\pn{expressao-XOR} &\pp& \pn{expressao-AND} \ww \sm{$\wedge$} \ww \pn{expressao-XOR} 
+\pn{expressao-XOR} &\pp& \pn{expressao-AND} \ww \pn{foo-expressao-XOR} \\
+\pn{foo-expressao-XOR} &\pp& \sm{$\wedge$} \ww \pn{expressao-XOR} 
 \end{eqnarray}
 
 
 \subsection{expressao-AND}
 \begin{eqnarray}
 \pn{expressao-AND} &\pp& \pn{expressao-igualdade} \\
-\pn{expressao-AND} &\pp& \pn{expressao-igualdade} \ww \sm{\&} \ww \pn{expressao-AND}
+\pn{expressao-AND} &\pp& \pn{expressao-igualdade} \ww \pn{foo-expressao-AND}\\
+\pn{foo-expressao-AND} &\pp& \sm{\&} \ww \pn{expressao-AND}
 \end{eqnarray}
 
 
@@ -204,11 +204,11 @@
 \subsection{expressao-relacional}
 \begin{eqnarray}
 \pn{expressao-relacional} &\pp& \pn{expressao-shift} \\
-\pn{expressao-relacional} &\pp& \pn{expressao-shift} \ww \pn{expressao-relacional} \\
-              \pn{expressao-relacional} &\pp& \sm{$<$} \ww \pn{expressao-relacional} \\
-              \pn{expressao-relacional} &\pp& \sm{$\leq$} \ww \pn{expressao-relacional} \\
-              \pn{expressao-relacional} &\pp& \sm{$>$} \ww \pn{expressao-relacional} \\
-              \pn{expressao-relacional} &\pp& \sm{$\geq$} \ww \pn{expressao-relacional}
+\pn{expressao-relacional} &\pp& \pn{expressao-shift} \ww \pn{foo-expressao-relacional} \\
+\pn{foo-expressao-relacional} &\pp& \sm{$<$} \ww \pn{expressao-relacional} \\
+\pn{foo-expressao-relacional} &\pp& \sm{$\leq$} \ww \pn{expressao-relacional} \\
+\pn{efoo-xpressao-relacional} &\pp& \sm{$>$} \ww \pn{expressao-relacional} \\
+\pn{foo-expressao-relacional} &\pp& \sm{$\geq$} \ww \pn{expressao-relacional}
 \end{eqnarray}
 
         
@@ -243,11 +243,12 @@
 \subsection{expressao-unaria}
 til = acento til
 \begin{eqnarray}
-        \pn{expressao-unaria} &\pp& \pn{identificador}  \ww  \sm{++} \\
-        \pn{expressao-unaria} &\pp& \pn{identificador}  \ww  \sm{- -} \\
-        \pn{expressao-unaria} &\pp& \pn{numero} \\
-        \pn{expressao-unaria} &\pp& \pn{caracter} \\
-        \pn{expressao-unaria} &\pp& \pn{identificador} \ww \sm{(} \ww \pn{foo-expressao-unaria} \ww \sm{)} \\
+        \pn{expressao-unaria} &\pp& \sm{identificador}  \ww  \sm{++} \\
+        \pn{expressao-unaria} &\pp& \sm{identificador} \\
+        \pn{expressao-unaria} &\pp& \sm{identificador}  \ww  \sm{- -} \\
+        \pn{expressao-unaria} &\pp& \sm{numero} \\
+        \pn{expressao-unaria} &\pp& \sm{caracter} \\
+        \pn{expressao-unaria} &\pp& \sm{identificador} \ww \sm{(} \ww \pn{foo-expressao-unaria} \ww \sm{)} \\
    \pn{foo-expressao-unaria}  &\pp& \pn{expressao} \ww \\
    \pn{foo-expressao-unaria}  &\pp& \pn{expressao} \ww \sm{,} \ww \pn{foo-expressao-unaria} \\
        \pn{expressao-unaria}  &\pp& \sm{(}  \ww   \pn{expressao}   \ww  \sm{)} \\
